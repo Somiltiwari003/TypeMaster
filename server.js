@@ -22,4 +22,7 @@ app.get("/api/paragraph", (req, res) => {
   res.json({ text: paragraphs[random] });
 });
 
-app.listen(3000);
+app.listen(3000,()=>{
+  console.log("Server running on http://localhost:3000");
+})
+
