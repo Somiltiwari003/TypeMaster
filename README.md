@@ -6,3 +6,4 @@ To run the project on your system follow these steps:-
 4) Now first run the commands "npm init --y" and then "npm i express" on your terminal.
 5) Now check if "package.json" is created or not and inside this file change type: "commonjs" to type:"module".
 6) Finally go back to terminal and run command - "node server.js"
+7) Now you can open Chrome or any other browser and search for localhost:3000 .
