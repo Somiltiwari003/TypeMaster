@@ -6,11 +6,11 @@ const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const paragraphs = [
-  "Typing speed is not about fast fingers but accurate thinking executed consistently.",
-  "Programming requires patience logical thinking and the ability to debug your own mistakes.",
-  "The quick brown fox jumps over the lazy dog and tests every letter on the keyboard.",
-  "A good developer focuses on clarity correctness and maintainability over clever tricks.",
-  "Practice does not make perfect practice makes permanent so practice carefully."
+  "The street was quiet in the afternoon, broken only by the sound of a distant horn and the uneven rhythm of footsteps. Dust rose slowly as the sun leaned west, turning ordinary moments into something that felt strangely important.",
+  "Learning to type faster is less about speed and more about discipline, repetition, and resisting the urge to look at the keyboard. Every error slows progress, but every corrected mistake builds long term muscle memory.",
+  "Technology keeps evolving at a pace that feels impressive until you realize most people still struggle with basic tools. Elegant systems mean nothing when users ignore logic and mash keys while hoping for correct results.",
+  "Rain tapped the window in an unplanned pattern, unpredictable yet calming. Inside the room, unfinished tasks waited patiently, reminding him that time passes whether decisions are made or avoided entirely.",
+  "Consistency always beats motivation, even though motivation sounds cooler. Small daily practice sessions compound over time, quietly outperforming dramatic bursts of effort followed by long stretches of excuses."
 ];
 
 app.use(express.static(path.join(__dirname, "public")));
@@ -24,5 +24,5 @@ app.get("/api/paragraph", (req, res) => {
 
 app.listen(3000,()=>{
   console.log("Server running on http://localhost:3000");
-})
+});
 
