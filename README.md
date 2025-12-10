@@ -17,6 +17,7 @@ TypeMaster lets users test and improve their typing speed and accuracy by provid
 - Option to self-host via Node.js + Express
 
 ## To run the project on your system follow these steps:-
+(Must Download and install Node js on your system before following these steps. Link to be download-https://nodejs.org/en/download/current)
 1) Create a New Folder on your system named "typing-test".
 2) Copy the contents of this repository (public folder and server.js) on your system.
 3) Now open terminal and change the location to "......\typing-test" .
