@@ -49,13 +49,22 @@ function finishTest() {
   const wordsTyped = typedText.trim().split(/\s+/).length;
 
   const correctChars = countCorrectChars(testText, typedText);
-  const accuracy = typedText.length === 0
-    ? 0
-    : Math.round((correctChars / typedText.length) * 100);
+  let accuracy;
+  if(typedText.length===0){
+    accuracy=0;
+  }
+  else{
+    accuracy = Math.round((correctChars / typedText.length) * 100);
+  }
 
   const timeMinutes = parseInt(timeSelect.value) / 60;
-  const wpm = Math.round(wordsTyped / timeMinutes);
-
+  let wpm;
+  if(typedText.length===0){
+    wpm=0;
+  }
+  else{
+    wpm = Math.round(wordsTyped / timeMinutes);
+  }
   wpmEl.textContent = wpm;
   accuracyEl.textContent = accuracy;
 
