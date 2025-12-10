@@ -43,7 +43,11 @@ h2 {
   align-items: center;
   margin-bottom: 15px;
 }
-
+label{
+  background-color: #4d5ace;
+  color: white;
+  border-radius: 10px;
+}
 select,
 button {
   padding: 8px 12px;
@@ -51,16 +55,21 @@ button {
   border: 1px solid #ccc;
   font-size: 14px;
 }
-
+#timeSelect{
+  background-color: rgb(192, 183, 166);
+}
 button {
-  background: #1d2671;
+  background: #4d5ace;
   color: #fff;
   border: none;
   transition: background 0.3s;
 }
 
 button:hover {
-  background: #16205b;
+  background: #0a1f96;
+}
+label:hover {
+  background: #0a1f96;
 }
 
 #paragraph {
