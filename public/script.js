@@ -13,25 +13,23 @@ let testText = "";
 
 startBtn.addEventListener("click", startTest);
 
-function startTest() {
-  fetch("/api/paragraph")
-    .then(res => res.json())
-    .then(data => {
-      testText = data.text;
-      paragraphEl.textContent = testText;
-      inputEl.value = "";
-      inputEl.disabled = false;
-      inputEl.focus();
+async function startTest() {
+  let res=await fetch("/api/paragraph");
+  let data=await res.json();
+  testText=data.text;
+  paragraphEl.textContent=testText;
+  inputEl.value="";
+  inputEl.disabled=false;
+  inputEl.focus();
 
-      timeLeft = parseInt(timeSelect.value);
-      timeEl.textContent = timeLeft;
+  timeLeft = parseInt(timeSelect.value);
+  timeEl.textContent = timeLeft;
 
-      wpmEl.textContent = 0;
-      accuracyEl.textContent = 0;
+  wpmEl.textContent = 0;
+  accuracyEl.textContent = 0;
 
-      clearInterval(timer);
-      timer = setInterval(updateTimer, 1000);
-    });
+  clearInterval(timer);
+  timer = setInterval(updateTimer, 1000);
 }
 
 function updateTimer() {
