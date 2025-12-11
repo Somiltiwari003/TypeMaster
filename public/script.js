@@ -14,12 +14,19 @@ let testText = "";
 startBtn.addEventListener("click", startTest);
 
 async function startTest() {
-  let res=await fetch("/api/paragraph");
-  let data=await res.json();
-  let testText=data.text;
-  paragraphEl.textContent=testText;
-  inputEl.value="";
-  inputEl.disabled=false;
+  let res = await fetch("/api/paragraph");
+  let data = await res.json();
+
+  if (!data || !data.text) {
+    paragraphEl.textContent = "Error: no paragraph available.";
+    return;
+  }
+
+  testText = data.text;
+  paragraphEl.textContent = testText;
+
+  inputEl.value = "";
+  inputEl.disabled = false;
   inputEl.focus();
 
   timeLeft = parseInt(timeSelect.value);
@@ -36,7 +43,7 @@ function updateTimer() {
   timeLeft--;
   timeEl.textContent = timeLeft;
 
-  if (timeLeft === 0) {
+  if (timeLeft <= 0) {
     clearInterval(timer);
     finishTest();
   }
@@ -45,60 +52,58 @@ function updateTimer() {
 function finishTest() {
   inputEl.disabled = true;
 
-  const typedText = inputEl.value;
-  const words = typedText.trim().split(/\s+/);
-  // console.log(words);
-  const original=paragraphEl.textContent.split(/\s+/);
-  //console.log(original);
-  const wordsTyped=words.length;
-  // console.log(typedText);
-  // console.log(paragraphEl.textContent);
-  let correctChars=0;
-  let totalWords=0;
-  for(let i=0;i<words.length;i++){
-    correctChars+=countCorrectChars(original[i],words[i]);
-    totalWords+=countChars(words[i]);
-  }
-  let accuracy;
-  if(typedText.length===0){
-    accuracy=0;
-  }
-  else{
-    accuracy = Math.round((correctChars / totalWords) * 100);
+  const typed = inputEl.value.trim();
+  if (!typed) {
+    wpmEl.textContent = 0;
+    accuracyEl.textContent = 0;
+    saveHistory(0, 0);
+    loadHistory();
+    return;
   }
 
+  const originalWords = testText.trim().split(/\s+/);
+  const typedWords = typed.split(/\s+/);
+
+  let totalTypedChars = 0;
+  let correctChars = 0;
+
+  for (let i = 0; i < typedWords.length; i++) {
+    const typedWord = typedWords[i];
+    const origWord = originalWords[i];
+
+    if (!origWord) continue; 
+
+    totalTypedChars += origWord.length;
+    correctChars += countCorrectChars(origWord, typedWord);
+  }
+
+  const accuracy = Math.round((correctChars / totalTypedChars) * 100);
+
   const timeMinutes = parseInt(timeSelect.value) / 60;
-  let wpm;
-  if(typedText.length===0){
-    wpm=0;
-  }
-  else{
-    wpm = Math.round(wordsTyped / timeMinutes);
-  }
+  const completedWords = typedWords.filter(w => w.length > 0).length;
+  const wpm = Math.round(completedWords / timeMinutes);
+
   wpmEl.textContent = wpm;
   accuracyEl.textContent = accuracy;
 
   saveHistory(wpm, accuracy);
   loadHistory();
 }
-function countChars(chars){
-  let count=0;
-  for(let i=0;i<chars.length;i++){
-    count++;
-  }
-  return count;
-}
+
 function countCorrectChars(original, typed) {
   let count = 0;
-  for (let j = 0; j < original.length; j++) {
-    if(j>=typed.length) break;
-    if (typed[j] === original[j]) count++;
+  const limit = Math.min(original.length, typed.length);
+
+  for (let i = 0; i < limit; i++) {
+    if (original[i] === typed[i]) count++;
   }
+
   return count;
 }
 
 function saveHistory(wpm, accuracy) {
   const history = JSON.parse(localStorage.getItem("typingHistory")) || [];
+  
   history.unshift({
     date: new Date().toLocaleString(),
     wpm,
@@ -121,6 +126,3 @@ function loadHistory() {
 }
 
 loadHistory();
-
-
-
