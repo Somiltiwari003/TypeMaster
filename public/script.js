@@ -83,7 +83,6 @@ function finishTest() {
 }
 function countChars(chars){
   let count=0;
-  if(j>=typed.length) break;
   for(let i=0;i<chars.length;i++){
     count++;
   }
@@ -92,6 +91,7 @@ function countChars(chars){
 function countCorrectChars(original, typed) {
   let count = 0;
   for (let j = 0; j < original.length; j++) {
+    if(j>=typed.length) break;
     if (typed[j] === original[j]) count++;
   }
   return count;
@@ -121,5 +121,6 @@ function loadHistory() {
 }
 
 loadHistory();
+
 
 
