@@ -16,7 +16,7 @@ startBtn.addEventListener("click", startTest);
 async function startTest() {
   let res=await fetch("/api/paragraph");
   let data=await res.json();
-  testText=data.text;
+  let testText=data.text;
   paragraphEl.textContent=testText;
   inputEl.value="";
   inputEl.disabled=false;
@@ -46,15 +46,25 @@ function finishTest() {
   inputEl.disabled = true;
 
   const typedText = inputEl.value;
-  const wordsTyped = typedText.trim().split(/\s+/).length;
-
-  const correctChars = countCorrectChars(testText, typedText);
+  const words = typedText.trim().split(/\s+/);
+  // console.log(words);
+  const original=paragraphEl.textContent.split(/\s+/);
+  //console.log(original);
+  const wordsTyped=words.length;
+  // console.log(typedText);
+  // console.log(paragraphEl.textContent);
+  let correctChars=0;
+  let totalWords=0;
+  for(let i=0;i<words.length;i++){
+    correctChars+=countCorrectChars(original[i],words[i]);
+    totalWords+=countChars(words[i]);
+  }
   let accuracy;
   if(typedText.length===0){
     accuracy=0;
   }
   else{
-    accuracy = Math.round((correctChars / typedText.length) * 100);
+    accuracy = Math.round((correctChars / totalWords) * 100);
   }
 
   const timeMinutes = parseInt(timeSelect.value) / 60;
@@ -71,11 +81,17 @@ function finishTest() {
   saveHistory(wpm, accuracy);
   loadHistory();
 }
-
+function countChars(chars){
+  let count=0;
+  for(let i=0;i<chars.length;i++){
+    count++;
+  }
+  return count;
+}
 function countCorrectChars(original, typed) {
   let count = 0;
-  for (let i = 0; i < typed.length; i++) {
-    if (typed[i] === original[i]) count++;
+  for (let j = 0; j < typed.length; j++) {
+    if (typed[j] === original[j]) count++;
   }
   return count;
 }
