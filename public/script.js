@@ -72,9 +72,14 @@ function finishTest() {
     const origWord = originalWords[i];
 
     if (!origWord) continue; 
-
-    totalTypedChars +=typedWord.length;
-    correctChars += countCorrectChars(origWord, typedWord);
+    if(i==typedWords.length-1){
+      totalTypedChars+=typedWord.length;
+      correctChars+=countLastCorrectChars(origWord,typedWord);
+    }
+    else{
+      totalTypedChars+=typedWord.length;
+      correctChars+=countCorrectChars(origWord, typedWord);
+    }
   }
 
   const accuracy = Math.round((correctChars / totalTypedChars) * 100);
@@ -89,15 +94,29 @@ function finishTest() {
   saveHistory(wpm, accuracy);
   loadHistory();
 }
+function countLastCorrectChars(original,typed){
+  let count=0;
+  const limit = Math.min(original.length, typed.length);
 
+  for(let i=0;i<limit;i++){
+     if(original[i]===typed[i]) count++;
+  }
+
+  return count;
+}
 function countCorrectChars(original, typed) {
   let count = 0;
   const limit = Math.min(original.length, typed.length);
-
+  
   for (let i = 0; i < limit; i++) {
     if (original[i] === typed[i]) count++;
   }
-
+  if(original.length>typed.length){
+    count-=(original.length-typed.length);
+  }
+  else{
+    count-=(typed.length-original.length);
+  }
   return count;
 }
 
@@ -126,4 +145,3 @@ function loadHistory() {
 }
 
 loadHistory();
-
