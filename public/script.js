@@ -90,7 +90,7 @@ function countChars(chars){
 }
 function countCorrectChars(original, typed) {
   let count = 0;
-  for (let j = 0; j < typed.length; j++) {
+  for (let j = 0; j < original.length; j++) {
     if (typed[j] === original[j]) count++;
   }
   return count;
@@ -120,3 +120,4 @@ function loadHistory() {
 }
 
 loadHistory();
+
