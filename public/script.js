@@ -73,7 +73,7 @@ function finishTest() {
 
     if (!origWord) continue; 
 
-    totalTypedChars += origWord.length;
+    totalTypedChars += origWord.length,typedWord.length;
     correctChars += countCorrectChars(origWord, typedWord);
   }
 
