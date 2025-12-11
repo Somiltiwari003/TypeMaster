@@ -83,6 +83,7 @@ function finishTest() {
 }
 function countChars(chars){
   let count=0;
+  if(j>=typed.length) break;
   for(let i=0;i<chars.length;i++){
     count++;
   }
@@ -120,4 +121,5 @@ function loadHistory() {
 }
 
 loadHistory();
+
 
