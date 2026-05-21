@@ -79,6 +79,7 @@ label:hover {
   line-height: 1.6;
   margin-bottom: 10px;
   border-left: 5px solid #1d2671;
+  font-size: 3vh;
 }
 
 textarea {
